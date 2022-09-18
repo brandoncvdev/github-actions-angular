@@ -52,4 +52,4 @@ jobs:
 
     - name: Deploy
       if: success()
-      run: aws s3 sync ./dist/angular-testing s3://testing-angular-bcasv
+      run: aws s3 sync ./ s3://testing-angular-bcasv
