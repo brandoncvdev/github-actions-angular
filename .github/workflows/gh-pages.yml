@@ -24,6 +24,8 @@ on:
 
 jobs:
   deploy:
+    # this job will only run if the PR has been merged
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - name: Configure AWS Credentials
@@ -53,3 +55,11 @@ jobs:
     - name: Deploy
       if: success()
       run: aws s3 sync ./dist/testing_github_actions s3://testing-angular-bcasv
+
+  close_job:
+    # this job will only run if the PR has been closed without being merged
+    if: github.event.pull_request.merged == false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo PR #${{ github.event.number }} has been closed without being merged
